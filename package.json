@@ -1,5 +1,5 @@
 {
-  "name": "application-name",
+  "name": "a-5",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -9,5 +9,9 @@
     "express": "3.1.1",
     "jade": "*",
     "mongodb": "1.2.14"
+  },
+  "engines": {
+    "node": "0.10.3",
+    "npm": "1.2.15"
   }
 }
