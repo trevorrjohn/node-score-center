@@ -51,7 +51,7 @@ exports.highscores = function (req, res) {
     db.collection('highscores', function(err, collection) {
       if (err) { process.stderr.write( "Error in collection in all: " + err + "\n") }
       else {
-        highscores.find({ game_title: game_title }).sort({ score: -1 }).limit(10).toArray( function (err, items) {
+        collection.find({ game_title: game_title }).sort({ score: -1 }).limit(10).toArray( function (err, items) {
           if (err) { process.stderr.write("Error in highscores in find: " + err + "\n") }
           else res.send(items)
         })

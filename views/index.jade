@@ -2,17 +2,20 @@ extends layout
 
 block content
   h1= title
-  table
-    thead
-      tr
-        th Game title
-        th Username
-        th Score
-        th Created at
-    tbody
-      each score in scores
+  - if (scores.length != 0)
+    table
+      thead
         tr
-          td= score.game_title
-          td= score.username 
-          td= score.score
-          td= score.created_at
+          th Game title
+          th Username
+          th Score
+          th Created at
+      tbody
+        each score in scores
+          tr
+            td= score.game_title
+            td= score.username 
+            td= score.score
+            td= score.created_at
+  - else
+    p No scores added yet!
