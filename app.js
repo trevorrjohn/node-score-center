@@ -1,17 +1,11 @@
-
-/**
- * Module dependencies.
- */
-
 var express = require('express')
   , routes = require('./routes')
-  , user = require('./routes/user')
+  , scores = require('./routes/scores')
   , http = require('http')
   , path = require('path');
 
 var app = express();
 
-// all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'jade');
@@ -27,9 +21,13 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.get('/', routes.index);
-app.get('/users', user.list);
-app.post('/submit.json', user.list);
+// Homepage
+app.get('/', scores.index);
+// app.get('/users', user.list);
+// app.get('/highscores.json', scores.all);
+// app.get('/usersearch', scores.usersearch);
+// app.get('/usersearch', scores.search);
+app.post('/submit.json', scores.create);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
