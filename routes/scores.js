@@ -6,20 +6,8 @@ var Server = mongo.Server,
 
 var mongoUri = process.env.MONGOHQ_URL || 'mongodb://localhost/scorecenter';
 var db = mongo.Db.connect(mongoUri, function (err, dbConnection) {
-  if (err)
-    console.log("Error: No database connection")
-  else
-    db = dbConnection;
-    db.collection('highscores', function (err, collection) {
-      collection.insert({game_title: "Pacman", username: "Trevor", score: 45}, {safe: true}, function (err, result) {
-        if (err) {
-          console.log( "error: 'Nothing was inserted'" )
-          console.log(err)
-        } else {
-          console.log( "Success: " + JSON.stringify(result[0]))
-        }
-      })
-    })
+  if (err) process.stderr.write("Error: No database connection")
+  else db = dbConnection;
 })
 
 exports.create = function (req, res) {
@@ -38,7 +26,7 @@ exports.create = function (req, res) {
         if (err) {
           res.send({ error: 'An error has occurred' })
         } else {
-          console.log( "Success: " + JSON.stringify(result[0]))
+          process.stdout.write( "Success: " + JSON.stringify(result[0]))
           res.send( result[0] )
         }
       })
