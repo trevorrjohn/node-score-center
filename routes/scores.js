@@ -22,7 +22,7 @@ exports.create = function (req, res) {
         if (err) {
           res.send({ error: 'An error has occurred' })
         } else {
-          process.stdout.write( "Success: " + JSON.stringify(result[0]))
+          console.log( "Success: " + JSON.stringify(result[0]))
           res.send( result[0] )
         }
       })
@@ -32,10 +32,36 @@ exports.create = function (req, res) {
   }
 }
 
-exports.index = function(req, res){
+exports.index = function (req, res) {
   db.collection('highscores', function(err, collection) {
     collection.find().toArray( function (err, items) {
-      res.render('index', { title: 'Scores', scores: items } )
+      res.render('index', { title: 'Scores', scores: items })
     })
   })
 };
+
+exports.all = function (req, res) {
+  db.collection('highscores', function(err, collection) {
+    collection.find().toArray( function (err, items) {
+      if (err) process.stdout.write(err)
+      else res.send(items)
+    })
+  })
+}
+
+exports.usersearch = function (req, res) {
+  res.render('usersearch', { title: 'Search' })
+}
+
+exports.search = function (req, res) {
+  var username = req.body.username
+  if (username) {
+    db.collection('highscores', function(err, collection) {
+      collection.find({ username: username }).toArray( function (err, items) {
+        res.send({ status: "Query preformed", scores: items })
+      })
+    })
+  } else {
+    res.send({scores: [], status: "No 'username' found in body."})
+  }
+}

@@ -16,17 +16,14 @@ app.use(express.methodOverride());
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
-// development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-// Homepage
 app.get('/', scores.index);
-// app.get('/users', user.list);
-// app.get('/highscores.json', scores.all);
-// app.get('/usersearch', scores.usersearch);
-// app.get('/usersearch', scores.search);
+app.get('/highscores.json', scores.all);
+app.get('/usersearch', scores.usersearch);
+app.post('/usersearch', scores.search);
 app.post('/submit.json', scores.create);
 
 http.createServer(app).listen(app.get('port'), function(){
