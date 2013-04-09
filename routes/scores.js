@@ -1,9 +1,5 @@
 var mongo = require('mongodb');
 
-var Server = mongo.Server,
-    Db = mongo.Db,
-    BSON = mongo.BSONPure;
-
 var mongoUri = process.env.MONGOHQ_URL || 'mongodb://localhost/scorecenter';
 var db = mongo.Db.connect(mongoUri, function (err, dbConnection) {
   if (err) process.stderr.write("Error: No database connection")
