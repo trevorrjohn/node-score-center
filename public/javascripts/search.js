@@ -8,7 +8,7 @@
       $.post("/usersearch", { username: query }, function(data) {
         var scores = data.scores
         var html = "<div id='results'><hr/><table><thead><tr><th>Username</th>" +
-          "<th>Game Title</th><th>Score</th></tr></thead>"+
+          "<th>Game title</th><th>Score</th><<th>Created at</th></tr></thead>"+
           "<tbody>";
 
         if (scores.length != 0) {
@@ -16,6 +16,7 @@
             html += "<tr><td>" + scores[i].username + "</td>"
             html += "<td>" + scores[i].game_title + "</td>"
             html += "<td>" + scores[i].score + "</td></tr>"
+            html += "<td>" + scores[i].created_at + "</td></tr>"
           }
           html += "</tbody></table></div>"
         } else {

@@ -1,5 +1,4 @@
 var express = require('express')
-  , routes = require('./routes')
   , scores = require('./routes/scores')
   , http = require('http')
   , path = require('path');
@@ -21,7 +20,7 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', scores.index);
-app.get('/highscores.json', scores.all);
+app.get('/highscores.json', scores.highscores);
 app.get('/usersearch', scores.usersearch);
 app.post('/usersearch', scores.search);
 app.post('/submit.json', scores.create);

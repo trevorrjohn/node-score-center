@@ -5,12 +5,14 @@ block content
   table
     thead
       tr
-        th Game Title
+        th Game title
         th Username
         th Score
+        th Created at
     tbody
       each score in scores
         tr
           td= score.game_title
           td= score.username 
           td= score.score
+          td= score.created_at

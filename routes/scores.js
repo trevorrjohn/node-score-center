@@ -12,11 +12,11 @@ exports.create = function (req, res) {
 
   var game_title = req.body.game_title,
       username = req.body.username,
-      score = req.body.score;
+      score = parseInt(req.body.score);
 
   if ( game_title && username && score ) {
     db.collection('highscores', function (err, collection) {
-      var new_score = { game_title: game_title, username: username, score: score };
+      var new_score = { game_title: game_title, username: username, score: score, created_at: new Date };
 
       collection.insert( new_score, { safe: true }, function (err, result) {
         if (err) {
@@ -41,12 +41,17 @@ exports.index = function (req, res) {
 };
 
 exports.all = function (req, res) {
+  var game_title = req.query.game_title
+  if (game_title) {
   db.collection('highscores', function(err, collection) {
-    collection.find().toArray( function (err, items) {
+    collection.find({ game_title: game_title }).sort({ score: -1 }).limit(10).toArray( function (err, items) {
       if (err) process.stdout.write(err)
       else res.send(items)
     })
   })
+  } else {
+    res.send( {} )
+  }
 }
 
 exports.usersearch = function (req, res) {
