@@ -4,26 +4,22 @@ var Server = mongo.Server,
     Db = mongo.Db,
     BSON = mongo.BSONPure;
 
-var server = new Server('localhost', 27017, {auto_reconnect: true});
-db = new Db('Scorecenter', server, {safe: true});
-
-db.open( function (err, db) {
-  if (!err) {
-    console.log("Connected to 'scores' database")
-    db.collection('highscores', { safe: true })
+var mongoUri = process.env.MONGOHQ_URL || 'mongodb://localhost/scorecenter';
+var db = mongo.Db.connect(mongoUri, function (err, dbConnection) {
+  if (err)
+    console.log("Error: No database connection")
+  else
+    db = dbConnection;
     db.collection('highscores', function (err, collection) {
-      collection.insert( {game_title: 'Frogger', username: 'trevor', score: 4000}, {safe: true}, function (err, result) {
+      collection.insert({game_title: "Pacman", username: "Trevor", score: 45}, {safe: true}, function (err, result) {
         if (err) {
-          console.log("Error adding seed data")
+          console.log( "error: 'Nothing was inserted'" )
+          console.log(err)
         } else {
-          console.log("Seed data added")
+          console.log( "Success: " + JSON.stringify(result[0]))
         }
       })
-      collection.find().toArray( function (err, items) {
-        console.log(items)
-      })
     })
-  }
 })
 
 exports.create = function (req, res) {
