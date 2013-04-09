@@ -23,6 +23,9 @@ var db = mongo.Db.connect(mongoUri, function (err, dbConnection) {
 })
 
 exports.create = function (req, res) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
   var game_title = req.body.game_title,
       username = req.body.username,
       score = req.body.score;
