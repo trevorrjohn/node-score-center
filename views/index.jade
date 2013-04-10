@@ -2,6 +2,10 @@ extends layout
 
 block content
   h1= title
+  a(href="/usersearch") User search
+
+  hr
+
   - if (scores.length != 0)
     table
       thead
