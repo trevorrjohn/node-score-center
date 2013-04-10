@@ -42,7 +42,7 @@ exports.index = function (req, res) {
     if (err) {
       writeError(err, req)
     } else {
-      highscores.find().toArray( function (err, items) {
+      highscores.find().sort({ created_at: -1 }).toArray( function (err, items) {
         if (err) {
           writeError(err, req)
         } else {
