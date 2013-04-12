@@ -2,7 +2,7 @@ var mongo = require('mongodb')
   , error = require('../helpers/errors')
 
 /* Database configurationg */
-var mongoUri = process.env.MONGOHQ_URL || 'mongodb://localhost/scorecenter';
+var mongoUri = process.env.DATABASE_URL || 'mongodb://localhost/scorecenter';
 
 var db = mongo.Db.connect(mongoUri, function (err, dbConnection) {
   if (err) { error.output("Error connecting to database: " + err + "\n") }
