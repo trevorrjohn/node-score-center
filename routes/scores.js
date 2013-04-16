@@ -25,13 +25,10 @@ exports.index = function (req, res) {
       })
     }
   })
-};
+}
 
 /* POST '/submit.json' */
 exports.create = function (req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-
   var new_score = {
         game_title: req.body.game_title,
         username: req.body.username,
