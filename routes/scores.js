@@ -29,9 +29,6 @@ exports.index = function (req, res) {
 
 /* POST '/submit.json' */
 exports.create = function (req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-
   var new_score = {
         game_title: req.body.game_title,
         username: req.body.username,
@@ -60,9 +57,6 @@ exports.create = function (req, res) {
 
 /* GET '/highscores.json' */
 exports.highscores = function (req, res) {
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-
   var game_title = req.query.game_title
   if (game_title) {
     db.collection('highscores', function(err, highscores) {
